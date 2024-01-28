@@ -1,20 +1,17 @@
 public class Log {
-    public static void validateUser(String login, String password, String confirmPassword) {
-        String allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+    private static final String ALLOWED_CHARS =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
 
-        try {
-            if (login.length() > 20 || containsInvalidChars(login, allowedChars)) {
-                throw new WrongLoginException("Превышена максимальная длина или неправильный формат логина");
-            }
-            if (password.length() > 20 || containsInvalidChars(password, allowedChars)) {
-                throw new WrongPasswordException("Превышена максимальная длина или неправильный формат пароля");
-            }
-            if (!password.equals(confirmPassword)) {
-                throw new WrongPasswordException("Пароли не совпадают");
-            }
-        } catch (WrongLoginException | WrongPasswordException e) {
-            e.printStackTrace();
-            System.out.println("Исключение: " + e.getMessage());
+    public static void validateUser(String login, String password, String confirmPassword) {
+
+        if (login.length() > 20 || containsInvalidChars(login, ALLOWED_CHARS)) {
+            throw new WrongLoginException("Превышена максимальная длина или неправильный формат логина");
+        }
+        if (password.length() > 20 || containsInvalidChars(password, ALLOWED_CHARS)) {
+            throw new WrongPasswordException("Превышена максимальная длина или неправильный формат пароля");
+        }
+        if (!password.equals(confirmPassword)) {
+            throw new WrongPasswordException("Пароли не совпадают");
         }
     }
 
